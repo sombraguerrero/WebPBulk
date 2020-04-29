@@ -46,13 +46,24 @@ namespace WebPBulk
             progressBar1.Maximum = directoryInfo.GetFiles().Length;
             foreach (FileInfo item in directoryInfo.EnumerateFiles())
             {
+                int extLen = RemoveLen(item.Extension.Length, 4);
                 Bitmap bitmap = new Bitmap(item.FullName);
-                using (FileStream fs = File.Create($"{targetDir}\\{item.Name.Remove(item.Name.Length - 3, 3)}webp"))
+                using (FileStream fs = File.Create($"{targetDir}\\{item.Name.Remove(item.Name.Length - extLen, extLen)}.webp"))
                 {
                     simpleEncoder.Encode(bitmap, fs, 85);
                     progressBar1.PerformStep();
                 }
             }
+        }
+
+        private int RemoveLen(int srcLength,  int targetLength)
+        {
+            if (srcLength < targetLength)
+                return targetLength - 1;
+            else if (srcLength > targetLength)
+                return targetLength + 1;
+            else
+                return targetLength;
         }
 
         private void DecodeOut()
@@ -67,9 +78,10 @@ namespace WebPBulk
             progressBar1.Maximum = directoryInfo.GetFiles().Length;
             foreach (FileInfo item in directoryInfo.EnumerateFiles())
             {
+                int extLen = RemoveLen(item.Extension.Length, 3);
                 byte[] imageData = File.ReadAllBytes(item.FullName);
                 Bitmap bitmap = simpleDecoder.DecodeFromBytes(imageData, imageData.Length);
-                bitmap.Save($"{targetDir}\\{item.Name.Remove(item.Name.Length - 4, 4)}png");
+                bitmap.Save($"{targetDir}\\{item.Name.Remove(item.Name.Length - extLen, extLen)}png");
                 progressBar1.PerformStep();
             }
         }
