@@ -46,7 +46,7 @@ namespace WebPBulk
             progressBar1.Maximum = directoryInfo.GetFiles().Length;
             foreach (FileInfo item in directoryInfo.EnumerateFiles())
             {
-                if (!item.Extension.Equals(".ini"))
+                if (!item.Attributes.HasFlag(FileAttributes.Hidden))
                 {
                     int extLen = RemoveLen(item.Extension.Length, 4);
                     Bitmap bitmap = new Bitmap(item.FullName);
@@ -83,7 +83,7 @@ namespace WebPBulk
             progressBar1.Maximum = directoryInfo.GetFiles().Length;
             foreach (FileInfo item in directoryInfo.EnumerateFiles())
             {
-                if (!item.Extension.Equals(".ini"))
+                if (!item.Attributes.HasFlag(FileAttributes.Hidden))
                 {
                     int extLen = RemoveLen(item.Extension.Length, 3);
                     byte[] imageData = File.ReadAllBytes(item.FullName);
