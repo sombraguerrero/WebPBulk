@@ -8,6 +8,7 @@ namespace WebPBulk
 {
     public partial class Form1 : Form
     {
+        private static bool doBulk;
         public Form1()
         {
             InitializeComponent();
@@ -19,18 +20,27 @@ namespace WebPBulk
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = folderBrowserDialog1.SelectedPath;
+                progressBar1.Visible = doBulk = true;
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (doBulk && radioButton1.Checked)
             {
                 EncodeOut();
             }
-            else
+            else if (doBulk && radioButton2.Checked)
             {
                 DecodeOut();
+            }
+            else if (!doBulk && radioButton1.Checked)
+            {
+                EncodeFileOut();
+            }
+            else if (!doBulk && radioButton2.Checked)
+            {
+                DecodeFileOut();
             }
         }
 
@@ -88,11 +98,47 @@ namespace WebPBulk
                     int extLen = RemoveLen(item.Extension.Length, 3);
                     byte[] imageData = File.ReadAllBytes(item.FullName);
                     Bitmap bitmap = simpleDecoder.DecodeFromBytes(imageData, imageData.Length);
-                    bitmap.Save($"{targetDir}\\{item.Name.Remove(item.Name.Length - extLen, extLen)}png");
+                    bitmap.Save($"{targetDir}\\{item.Name.Remove(item.Name.Length - extLen, extLen)}bmp");
                     progressBar1.PerformStep();
                 }
                 else
                     progressBar1.Maximum--;
+            }
+        }
+
+        private void filesBtn_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBox1.Text = openFileDialog1.FileName;
+                progressBar1.Visible = doBulk = false;
+            }
+        }
+        private void EncodeFileOut()
+        {
+            SimpleEncoder simpleEncoder = new SimpleEncoder();
+            Bitmap bitmap = new Bitmap(textBox1.Text);
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (FileStream fs = File.Create(saveFileDialog1.FileName))
+                {
+                    simpleEncoder.Encode(bitmap, fs, 85);
+                    MessageBox.Show($"File encoded to {saveFileDialog1.FileName}", "Complete");
+                }
+            }
+        }
+
+        private void DecodeFileOut()
+        {
+            SimpleDecoder simpleDecoder = new SimpleDecoder();
+            byte[] imageData = File.ReadAllBytes(textBox1.Text);
+            saveFileDialog1.DefaultExt = "bmp";
+            saveFileDialog1.Filter = "Bitmap Files|*.bmp";
+            Bitmap bitmap = simpleDecoder.DecodeFromBytes(imageData, imageData.Length);
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                bitmap.Save(saveFileDialog1.FileName);
+                MessageBox.Show($"File decoded to {saveFileDialog1.FileName}", "Complete");
             }
         }
     }

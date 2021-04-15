@@ -29,34 +29,37 @@
         private void InitializeComponent()
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dirBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.filesBtn = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 18);
+            this.textBox1.Location = new System.Drawing.Point(22, 43);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 20);
+            this.textBox1.Size = new System.Drawing.Size(212, 20);
             this.textBox1.TabIndex = 0;
             // 
-            // button1
+            // dirBtn
             // 
-            this.button1.Location = new System.Drawing.Point(208, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 22);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.dirBtn.Location = new System.Drawing.Point(22, 12);
+            this.dirBtn.Name = "dirBtn";
+            this.dirBtn.Size = new System.Drawing.Size(104, 24);
+            this.dirBtn.TabIndex = 1;
+            this.dirBtn.Text = "Browse Directories";
+            this.dirBtn.UseVisualStyleBackColor = true;
+            this.dirBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(289, 17);
+            this.button2.Location = new System.Drawing.Point(159, 69);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 22);
             this.button2.TabIndex = 2;
@@ -66,46 +69,68 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 67);
+            this.progressBar1.Location = new System.Drawing.Point(22, 97);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(352, 26);
+            this.progressBar1.Size = new System.Drawing.Size(212, 26);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 3;
+            this.progressBar1.Visible = false;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 44);
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(22, 69);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(62, 17);
             this.radioButton1.TabIndex = 4;
+            this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Encode";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(80, 44);
+            this.radioButton2.Location = new System.Drawing.Point(90, 69);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(63, 17);
             this.radioButton2.TabIndex = 5;
-            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Decode";
             this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // filesBtn
+            // 
+            this.filesBtn.Location = new System.Drawing.Point(132, 13);
+            this.filesBtn.Name = "filesBtn";
+            this.filesBtn.Size = new System.Drawing.Size(104, 23);
+            this.filesBtn.TabIndex = 6;
+            this.filesBtn.Text = "Browse Files";
+            this.filesBtn.UseVisualStyleBackColor = true;
+            this.filesBtn.Click += new System.EventHandler(this.filesBtn_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "webp";
+            this.saveFileDialog1.Filter = "WebP |*.webp";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 118);
+            this.ClientSize = new System.Drawing.Size(255, 131);
+            this.Controls.Add(this.filesBtn);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dirBtn);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
-            this.Text = "Bulk WebP Encoder";
+            this.Text = "Webp Encoder/Decoder";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,12 +139,15 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button dirBtn;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Button filesBtn;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
