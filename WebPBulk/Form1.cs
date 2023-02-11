@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Note: Imazen WEBP is only compatible with 32-bit libraries using version 1.2.4 or below. 1.3.0+ breaks it.
+
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
