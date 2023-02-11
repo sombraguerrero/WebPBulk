@@ -15,6 +15,7 @@ namespace WebPBulk
         {
             InitializeComponent();
             radioButton1.Checked = true;
+            label1.Text += trackBar1.Value;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -64,7 +65,7 @@ namespace WebPBulk
                     Bitmap bitmap = new Bitmap(item.FullName);
                     using (FileStream fs = File.Create($"{targetDir}\\{item.Name.Remove(item.Name.Length - extLen, extLen)}.webp"))
                     {
-                        simpleEncoder.Encode(bitmap, fs, 85);
+                        simpleEncoder.Encode(bitmap, fs, trackBar1.Value);
                         progressBar1.PerformStep();
                     }
                 }
@@ -124,7 +125,7 @@ namespace WebPBulk
             {
                 using (FileStream fs = File.Create(saveFileDialog1.FileName))
                 {
-                    simpleEncoder.Encode(bitmap, fs, 85);
+                    simpleEncoder.Encode(bitmap, fs, trackBar1.Value);
                     MessageBox.Show($"File encoded to {saveFileDialog1.FileName}", "Complete");
                 }
             }
@@ -142,6 +143,11 @@ namespace WebPBulk
                 bitmap.Save(saveFileDialog1.FileName);
                 MessageBox.Show($"File decoded to {saveFileDialog1.FileName}", "Complete");
             }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            label1.Text = $"Quality: {trackBar1.Value}";
         }
     }
 }
