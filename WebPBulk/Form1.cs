@@ -149,5 +149,17 @@ namespace WebPBulk
         {
             label1.Text = $"Quality: {trackBar1.Value}";
         }
+
+        private void textBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] fn = (string[])e.Data.GetData(DataFormats.FileDrop);
+            textBox1.Text = fn[0];
+        }
+
+        private void textBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+        }
     }
 }
