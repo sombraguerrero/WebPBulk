@@ -154,10 +154,7 @@ namespace WebPBulk
         {
             string[] fn = (string[])e.Data.GetData(DataFormats.FileDrop);
             textBox1.Text = fn[0];
-            if (Directory.Exists(textBox1.Text))
-            {
-                progressBar1.Visible = doBulk = true;
-            }
+            progressBar1.Visible = doBulk = Directory.Exists(textBox1.Text);
         }
 
         private void textBox1_DragEnter(object sender, DragEventArgs e)
